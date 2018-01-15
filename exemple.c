@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exemple.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tlevaufr <tlevaufr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/10 13:29:48 by tlevaufr          #+#    #+#             */
+/*   Updated: 2018/01/10 16:54:53 by tlevaufr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -9,12 +21,11 @@ int		readlinewidth(int fd)
 	char	buff[2];
 	size_t	nbread;
 
-	(void)(memset((void*)buff, 0, (size_t)2));
+	(void)memset((void*)buff, 0, (size_t)2);
 	nbread = read(fd, (void*)buff, (size_t)2);
 	if (nbread == -1 || nbread == 0)
 		return (-1);
 	buff[1] = '\0';
-	printf("%s", buff);
 	return(atoi(buff));
 }
 void	readandprintlines(int fd, size_t linewidth)
