@@ -1,0 +1,11 @@
+Je vais probablement devoir me servir de : 
+strdup, strsub, strchr, strlen, strnew, strjoin, et strdel pour le leaks
+
+Idée 1 : allouer tout le fichier dans 1 seul char*
+identifier le nombre de chars jusqu'au 1er \n
+faire un strsub pour avoir une copie de ça
+strdel sur le 1er char*
+--> idée de merde
+
+Idée 2 : allouer buffer apres buffer et faire un concatene au fur et a mesure
+
