@@ -6,3 +6,5 @@ strdup, strsub, strchr, strlen, strnew, strjoin, et strdel pour le leaks
 
 Idée 2 : allouer buffer apres buffer et faire un concatene au fur et a mesure
 
+bonj.our/.salu.t/to.to\0 .
+
