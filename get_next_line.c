@@ -3,27 +3,25 @@
 size_t		size_to_write(t_gnl_lst *file, int read_value)
 {
 	size_t	nb_of_chars;
-	size_t	i;
 
 	nb_of_chars = 0;
-	i = file->bytes_readed;
-	while (!ft_issep(file->buf[i], "\n\0" || i < read_value))
-	{
-		nb_of_chars++;
-		i++;
-	}
+	while (!ft_issep(file->buf[nb_of_chars + file->bytes_readed], "\n\0")\
+		|| (nb_of_chars + file->bytes_readed) < read_value)
+			nb_of_chars++;
 	return (nb_of_chars);
 }
 
 char		**concat_line(t_gnl_lst *file, char **line_adress, int read_value)
 {
 	char	*new_line;
+	size_t	t;
 
-		if (!new_line = strnew(size_to_write(file, read_value) + 1))
-			return (NULL);
-	while (!ft_issep(file->buf[file->bytes_readed]) || file->bytes_readed < BUFF_SIZE)
-		new_line = file_buf[file->bytes_readed++]
-	*(new_line + 1) = '\0';
+	t = 0;
+	if (!new_line = strnew(size_to_write(file, read_value) + 1))
+		return (NULL);
+	while (!ft_issep(file->buf[file->bytes_readed], "\n\0") && file->bytes_readed < BUFF_SIZE)
+		new_line[t++] = file->buf[file->bytes_readed++]
+	new_line[t] = '\0';
 	if (*line_adress)
 	{
 		if (!(*line_adress) = ft_strjoin((*line_adress), new_line))
@@ -34,21 +32,22 @@ char		**concat_line(t_gnl_lst *file, char **line_adress, int read_value)
 	return (line_adress = &new_line);
 }
 
-char		**make_line(t_gnl_lst *file, char **line_adress)
+int			**make_line(t_gnl_lst *file, char **line_adress)
 {
 	int		bypass_read;
 	int		read_value;
 
-	bypass_read = (file->bytes_readed < BUFF_SIZE) ? 1 : 0;
+	bypass_read = file->bytes_readed < BUFF_SIZE && file->bytes_readed > 0;
 	while (bypass_read || read_value = read(file->fd, file->buf, BUFF_SIZE))
 	{
-		if (read_value == -1)
-
+		if (read_value == -1 || read_value == 0)
+			return (read_value);
 		file->bytes_readed = bypass_read ? file->bytes_readed : 0;
 		concat_line(file, line_adress, read_value);
 		bypass_read = (file->bytes_readed < BUFF_SIZE) ? 1 : 0;
-		if (
 	}
+	return (read_value);
+	/*return (read_value = read_value > 0 ? 1 : read_value); --> fait le job*/
 }
 
 t_gnl_lst	*new_or_find(const int fd, t_gnl_lst **list, int unfound)
@@ -59,7 +58,6 @@ t_gnl_lst	*new_or_find(const int fd, t_gnl_lst **list, int unfound)
 		if (!(ptr = malloc(sizeof(t_gnl_lst))))
 			return (NULL);
 		ptr->fd = fd;
-		//read(fd, ptr->buf, BUFF_SIZE);
 		ptr->bytes_readed = BUFF_SIZE;
 		ptr->next = unfound ? *list : NULL;
 		list = &ptr;
@@ -76,9 +74,11 @@ t_gnl_lst	*new_or_find(const int fd, t_gnl_lst **list, int unfound)
 int			get_next_line(const int fd, char **line)
 {
 	static t_gnl_lst	**list;
+	int					status;
 
 	if (!*line)
 		return (-1);
-	make_line(new_or_find(fd, list, 0), line);
+	status = make_line(new_or_find(fd, list, 0), line));
+		return (
 	
 }
