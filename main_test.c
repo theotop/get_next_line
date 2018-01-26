@@ -2,18 +2,17 @@
 
 int main(int argc, char **argv)
 {
-	char	**tab;
+	char	*tab;
 	int		i;
 	int		j;
 
 	i = 0;
 	if (argc == 2)
 	{
-		while(tab[i])
+		while (get_next_line(open(argv[1], O_RDONLY), &tab))
 		{
-			get_next_line(open(argv[1], O_RDONLY), &tab[i])
-			ft_putstr_nl(*tab);
-			i++;
+			ft_putstr(tab);
+			ft_putchar('\n');
 		}
 	}
 	return (0);
