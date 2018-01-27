@@ -2,17 +2,19 @@
 
 int main(int argc, char **argv)
 {
-	char	*tab;
-	int		i;
-	int		j;
+	char	*line;
+	int		fd;
 
-	i = 0;
+	line = NULL;
 	if (argc == 2)
 	{
-		while (get_next_line(open(argv[1], O_RDONLY), &tab))
+		fd = open(argv[1], O_RDONLY);
+		while (get_next_line(fd, &line) >= 0)
 		{
-			ft_putstr(tab);
-			ft_putchar('\n');
+			ft_putstr("\nGNL RETOURNE :");
+			ft_putstr(line);
+			free(line);
+			ft_putstr("\n\n\n");
 		}
 	}
 	return (0);
