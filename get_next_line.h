@@ -6,13 +6,13 @@
 /*   By: tlevaufr <tlevaufr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 13:17:36 by tlevaufr          #+#    #+#             */
-/*   Updated: 2018/01/26 14:20:17 by Theo             ###   ########.fr       */
+/*   Updated: 2018/02/08 17:23:53 by tlevaufr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 4
+# define BUFF_SIZE 40
 
 # include <string.h>
 # include "../libft/libft.h"
@@ -23,7 +23,7 @@ typedef struct				s_gnl_lst
 {
 		int					fd;
 		char				buf[BUFF_SIZE];
-		size_t				bytes_readed;
+		size_t				bytes_read;
 		struct s_gnl_lst	*next;
 }							t_gnl_lst;
 
