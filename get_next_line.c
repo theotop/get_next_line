@@ -6,7 +6,7 @@
 /*   By: tlevaufr <tlevaufr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 15:13:06 by tlevaufr          #+#    #+#             */
-/*   Updated: 2018/01/26 23:09:28 by Theo             ###   ########.fr       */
+/*   Updated: 2018/02/08 14:15:49 by Theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,23 @@ void		lst_del(int fd, t_gnl_lst **list)
 	t_gnl_lst *ptr2;
 
 	ptr = *list;
-	while (ptr->next->fd != fd)
+	if (ptr->fd == fd)
+	{
+		if (ptr->next)
+		{
+			list = &(ptr->next);
+			free(ptr);
+		}
+		else
+		{
+			free(*list);
+			list = NULL;
+		}
+		return;
+	}
+	while (ptr->next && ptr->next->fd != fd)
 		ptr = ptr->next;
-	ptr2 = ptr->next->next ? ptr->next->next : NULL;
+	ptr2 = (ptr->next && ptr->next->next) ? ptr->next->next : NULL;
 	free(ptr->next);
 	ptr->next = ptr2 ? ptr2 : NULL;
 }
@@ -43,14 +57,13 @@ char		**concat_line(t_gnl_lst *file, char **line_adress, int read_value)
 	size_t	nb_of_chars;
 
 	nb_of_chars = 0;
-	ft_putstr("début de concat_line\n");
-	while (!ft_issep(file->buf[nb_of_chars + file->bytes_readed], "\n")\
+	while (file->buf[nb_of_chars + file->bytes_readed] != '\n'\
 		&& (nb_of_chars + file->bytes_readed) < read_value)
 			nb_of_chars++;
 	t = 0;
 	if (!(new_line = ft_strnew(nb_of_chars + 1)))
 		return (NULL);
-	while (!ft_issep(file->buf[file->bytes_readed], "\n") && file->bytes_readed < BUFF_SIZE)
+	while (file->buf[file->bytes_readed] != '\n' && file->bytes_readed < BUFF_SIZE)
 		new_line[t++] = file->buf[file->bytes_readed++];
 	new_line[t] = '\0';
 	if (*line_adress)
@@ -76,7 +89,6 @@ int		make_line(t_gnl_lst *file, char **line_adress)
 	int		bypass_read;
 	int		read_value;
 
-	ft_putstr("début de make_line\n");
 	bypass_read = file->bytes_readed < (BUFF_SIZE) && file->bytes_readed > 0;
 	while (bypass_read || (read_value = (int)read(file->fd, file->buf, BUFF_SIZE)))
 	{
@@ -86,6 +98,10 @@ int		make_line(t_gnl_lst *file, char **line_adress)
 		file->bytes_readed = bypass_read ? file->bytes_readed : 0;
 		concat_line(file, line_adress, read_value);
 		bypass_read = file->bytes_readed < (BUFF_SIZE) ? 1 : 0;
+		if (read_value < BUFF_SIZE)
+		{
+			return (0);
+		}
 		if (file->buf[file->bytes_readed] == '\n')
 		{
 			file->bytes_readed++;
