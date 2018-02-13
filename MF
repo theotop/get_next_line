@@ -1,1 +1,1 @@
-gcc get_next_line.c main_test.c -I ../libft/ -lft -L ../libft/ -g
+gcc get_next_line.c main_test.c -I libft/ -lft -L libft/ -g

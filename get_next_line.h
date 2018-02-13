@@ -6,7 +6,7 @@
 /*   By: tlevaufr <tlevaufr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 13:17:36 by tlevaufr          #+#    #+#             */
-/*   Updated: 2018/02/13 15:28:35 by tlevaufr         ###   ########.fr       */
+/*   Updated: 2018/02/13 23:04:57 by Theo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 typedef struct			s_gnl_lst
 {
 	int					fd;
-	int					read_value;
+	ssize_t				read_value;
 	char				buf[BUFF_SIZE];
-	size_t				bytes_read;
+	ssize_t				bytes_read;
 	struct s_gnl_lst	*next;
 }						t_gnl_lst;
 
