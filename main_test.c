@@ -18,7 +18,6 @@ int main(int argc, char **argv)
 		while (gnl_ret)
 		{
 			gnl_ret = get_next_line(fd, &line);
-			gnl_ret2 = get_next_line(fd2, &line2);
 			ft_putstr(line);
 			ft_putchar('\n');
 			free(line);
