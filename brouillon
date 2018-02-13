@@ -1,9 +1,0 @@
-BROUILLON
-
-Je vais probablement devoir me servir de : 
-strdup, strsub, strchr, strlen, strnew, strjoin, et strdel pour le leaks
-
-bonj.our/.salu.t/to.to\0 .
-
-probleme a la ligne 99 ou bypass_read devrait prendre la valeur zero d'une maniere
-ou d'une autre, une fois arrivé a la fin du fichier
