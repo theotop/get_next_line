@@ -18,10 +18,20 @@ int main(int argc, char **argv)
 		while (gnl_ret)
 		{
 			gnl_ret = get_next_line(fd, &line);
+			ft_putstr("\ngnl renvoie: ");
+			ft_putnbr(gnl_ret);
+			ft_putstr("\nEt line vaut: ");
 			ft_putstr(line);
 			ft_putchar('\n');
 			free(line);
 		}
+		gnl_ret = get_next_line(fd, &line);
+		ft_putstr("\ngnl renvoie: ");
+		ft_putnbr(gnl_ret);
+		ft_putstr("\nEt line vaut: ");
+		ft_putstr(line);
+		ft_putchar('\n');
+		free(line);
 	}
 	if (argc == 3)
 	{
